@@ -18,7 +18,7 @@ public class UImanager : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus) {
         if(pauseStatus == true){
-            pauseMenu.gameObject.setEnabled(false);
+           
             
         }        
     }
