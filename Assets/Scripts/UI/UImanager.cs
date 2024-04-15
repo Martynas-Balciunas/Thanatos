@@ -1,26 +1,87 @@
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Timeline;
+using TMPro;
+using System.Linq;
 public class UImanager : MonoBehaviour
 
 {
+    public static UImanager Instance; // reference to UIManager --> UImanager.Instance
+    [SerializeField] private TMP_Text keyText;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject[] hearts;
     void Start()
     {
-        
+        Instance = this;
+        // updateKeyUI(0); // test
+       // InvokeRepeating("removeHeartUI", 2f, 1.9f); // test
+      //  InvokeRepeating("addHeartUI", 2f, 2f); // test
     }
 
     void Update()
     {
-        
+      
     }
 
     private void OnApplicationPause(bool pauseStatus) {
         if(pauseStatus == true){
-           
-            
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
         }        
     }
     
+    public void unPauseOnClick()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+
+    }
+    public void saveOnClick()
+    {
+        // to be implemented
+    }
+
+    public void exitOnClick()
+    {
+        Application.Quit();
+    }
+
+    public void updateKeyUI(int keyCount)
+    {
+        if(keyCount <= 99 && keyCount >= 0) // should always be true
+        {
+            keyText.text = keyCount.ToString();
+
+        }
+        else
+        {
+            updateKeyUI(0);
+        }
+    }
+    public void removeHeartUI() // call when damage taken
+    {
+        for(int i = hearts.Count() - 1; i >= 0; i--) // reverse through array
+        {
+            if (hearts[i].activeInHierarchy) // if heart is active
+            {
+                hearts[i].SetActive(false); // make it innactive
+                // can add heart loss effect function call here
+                break; // exit
+            }
+        }
+    }
+    public void addHeartUI() // call when healed
+    {
+        for (int i = 0; i < hearts.Count(); i ++) // check through array
+        {
+            if (!hearts[i].activeInHierarchy) // if heart is inactive
+            {
+                hearts[i].SetActive(true); // make it active
+                // can add heart gain effect function call here
+                break; // exit
+            }
+        }
+    }
 }
