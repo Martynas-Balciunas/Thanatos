@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,11 +34,11 @@ public class WorldManager : MonoBehaviour
         
         ghostTilemap.SetActive(false); // could add special fx if have time
 
-        if (ghostPlatforms.Length > 0)
+        if (ghostPlatforms.Count() > 0)
         {
             foreach (GameObject platform in ghostPlatforms) // could add special fx if have time
             {
-                platform.SetActive(true);
+                platform.SetActive(false);
             }
         }
     }
