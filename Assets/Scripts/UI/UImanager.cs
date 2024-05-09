@@ -37,7 +37,7 @@ public class UImanager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
     public void unPauseOnClick()
     {

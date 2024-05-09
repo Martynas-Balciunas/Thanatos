@@ -1,2 +1,3 @@
 https://ninjikin.itch.io/starter-tiles // Tilemap From Itch IO
 https://mounirtohami.itch.io/pixel-art-gui-elements // Font, and GUI Elements
+https://prinbles.itch.io/yet-another-icons // ICONS
