@@ -84,4 +84,16 @@ public class UImanager : MonoBehaviour
             }
         }
     }
+
+    public void removeAllHearts()
+    {
+        for (int i = hearts.Count() - 1; i >= 0; i--)
+        {
+            if (hearts[i].activeInHierarchy)
+            {
+                hearts[i].SetActive(false);
+            }
+
+        }
+    }
 }
