@@ -13,7 +13,11 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        hideGhostMap(); // Hide at start so incase active becomes hidden
+        if(ghostTilemap != null)
+        {
+            showGhostMap();
+        }
+        // Hide at start so incase active becomes hidden
     }
 
 

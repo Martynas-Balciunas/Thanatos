@@ -5,12 +5,16 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 public class UImanager : MonoBehaviour
 
 {
     public static UImanager Instance; // reference to UIManager --> UImanager.Instance
     [SerializeField] private TMP_Text keyText;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject lossMenu;
+    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
     void Start()
     {
@@ -27,11 +31,15 @@ public class UImanager : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus) {
         if(pauseStatus == true){
-            Time.timeScale = 0f;
-            pauseMenu.SetActive(true);
+            Pause();
         }        
     }
-    
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        pauseMenu.SetActive(true);
+    }
     public void unPauseOnClick()
     {
         Time.timeScale = 1f;
@@ -83,5 +91,55 @@ public class UImanager : MonoBehaviour
                 break; // exit
             }
         }
+    }
+
+    public void removeAllHearts()
+    {
+        for (int i = hearts.Count() - 1; i >= 0; i--)
+        {
+            if (hearts[i].activeInHierarchy)
+            {
+                hearts[i].SetActive(false);
+            }
+
+        }
+    }
+    public void showLossMenu()
+    {
+        Time.timeScale = 0f;
+        lossMenu.SetActive(true);
+    }
+
+    public void resetCurrentScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+    }
+    public void goToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void showSettingsMenu()
+    {
+        Time.timeScale = 0f;
+        settingsMenu.SetActive(true);
+    }
+    public void hideSettingsMenu()
+    {
+        Time.timeScale = 1f;
+        settingsMenu.SetActive(false);
+    }
+
+    public void continuePreviousGame()
+    {
+       if (!saveManager.Instance.doesSaveDataExist())
+        {
+            startNewGame();
+        }
+    }
+    public void startNewGame() 
+    {
+        SceneManager.LoadScene("Level1");
+       // SceneManager.LoadScene("Tutorial");
     }
 }
