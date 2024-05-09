@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         // Set health to 0
         // Play death effects & sound
         uiManager.removeAllHearts(); // ensures no hearts in case instant death
-        // show loss menu
+        uiManager.showLossMenu();
     }
 
     private void enterGhostForm()

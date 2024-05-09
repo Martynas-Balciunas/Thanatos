@@ -5,12 +5,15 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 public class UImanager : MonoBehaviour
 
 {
     public static UImanager Instance; // reference to UIManager --> UImanager.Instance
     [SerializeField] private TMP_Text keyText;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject lossMenu;
     [SerializeField] private GameObject[] hearts;
     void Start()
     {
@@ -27,11 +30,15 @@ public class UImanager : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus) {
         if(pauseStatus == true){
-            Time.timeScale = 0f;
-            pauseMenu.SetActive(true);
+            Pause();
         }        
     }
-    
+
+    public void Pause()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+    }
     public void unPauseOnClick()
     {
         Time.timeScale = 1f;
@@ -96,4 +103,20 @@ public class UImanager : MonoBehaviour
 
         }
     }
+    public void showLossMenu()
+    {
+        Time.timeScale = 1f;
+        lossMenu.SetActive(true);
+    }
+
+    public void resetCurrentScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+    }
+    public void goToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }
