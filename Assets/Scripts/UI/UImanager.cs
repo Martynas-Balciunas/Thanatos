@@ -14,6 +14,7 @@ public class UImanager : MonoBehaviour
     [SerializeField] private TMP_Text keyText;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject lossMenu;
+    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
     void Start()
     {
@@ -36,7 +37,7 @@ public class UImanager : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
         pauseMenu.SetActive(true);
     }
     public void unPauseOnClick()
@@ -105,7 +106,7 @@ public class UImanager : MonoBehaviour
     }
     public void showLossMenu()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
         lossMenu.SetActive(true);
     }
 
@@ -118,5 +119,14 @@ public class UImanager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-
+    public void showSettingsMenu()
+    {
+        Time.timeScale = 0f;
+        settingsMenu.SetActive(true);
+    }
+    public void hideSettingsMenu()
+    {
+        Time.timeScale = 1f;
+        settingsMenu.SetActive(false);
+    }
 }
