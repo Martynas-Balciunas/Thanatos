@@ -129,4 +129,17 @@ public class UImanager : MonoBehaviour
         Time.timeScale = 1f;
         settingsMenu.SetActive(false);
     }
+
+    public void continuePreviousGame()
+    {
+       if (!saveManager.Instance.doesSaveDataExist())
+        {
+            startNewGame();
+        }
+    }
+    public void startNewGame() 
+    {
+        SceneManager.LoadScene("Level1");
+       // SceneManager.LoadScene("Tutorial");
+    }
 }
