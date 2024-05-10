@@ -13,19 +13,15 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        if(ghostTilemap != null)
-        {
-            showGhostMap();
-        }
-        // Hide at start so incase active becomes hidden
+        hideGhostMap();
     }
 
 
     public void showGhostMap() // call upon becoming a ghost (WorldManager.Instance.showGhostMap();)
     {
+        ghostTilemap.SetActive(true);
         if (ghostPlatforms.Length > 0)
         {
-            ghostTilemap.SetActive(true);
             foreach (GameObject platform in ghostPlatforms) // could add special fx if have time
             {
                 platform.SetActive(true);

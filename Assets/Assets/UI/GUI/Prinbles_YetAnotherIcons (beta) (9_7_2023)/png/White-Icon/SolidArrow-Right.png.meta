@@ -140,7 +140,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SolidArrow-Right_0: 4506492694891613593
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
