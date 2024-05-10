@@ -38,12 +38,18 @@ public class UImanager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
+        if(pauseMenu != null)
+        {
+            pauseMenu.SetActive(true);
+        }
     }
     public void unPauseOnClick()
     {
         Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
 
     }
     public void saveOnClick()
