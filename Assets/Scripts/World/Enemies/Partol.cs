@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Partol : MonoBehaviour
 {
-    public GameObject PatrolPointA;
-    public GameObject PatrolPointB;
-    public float speed;
+    [SerializeField] private GameObject PatrolPointA;
+    [SerializeField] private GameObject PatrolPointB;
+    [SerializeField] private float speed;
     private Rigidbody2D rigidBody;
     private Transform currentPoint;
     // Start is called before the first frame update

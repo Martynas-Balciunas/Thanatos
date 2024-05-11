@@ -7,18 +7,18 @@ using UnityEngine.Animations;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+
     [SerializeField] private float moveSpeed = 5f;              // Horizontal movement speed
     [SerializeField] private float aliveJumpForce = 10f;        // Force for the initial jump in alive form
     [SerializeField] private float aliveDoubleJumpForce = 8f;   // Force for the double jump in alive form
     [SerializeField] private float ghostJumpForce = 7f;         // Force for the initial jump in ghost form
     [SerializeField] private float groundCheckRadius = 0.2f;    // Radius for ground check
     [SerializeField] private float ghostGravity;
-    public Transform groundCheck;             // Transform position for ground check
-    public LayerMask groundLayer;             // Layer mask for ground detection
+    [SerializeField] private Transform groundCheck;             // Transform position for ground check
+    [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private int maxHealth = 3;               // Maximum health of the player
     [SerializeField] private int keyCount = 0;
-    private bool flipped;
-
+   
     private Rigidbody2D rb;                   // Reference to the Rigidbody2D component
     private bool isGrounded;                  // Whether the player is grounded
     private bool canDoubleJump;               // Whether the player can perform a double jump
@@ -28,11 +28,11 @@ public class Player : MonoBehaviour
     private bool isGhost = false;             // Player state (ghost)
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        flipped = spriteRenderer.flipX == true;
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;            // Initialize health
         Instance = this;
@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) != null;
         float moveInput = Input.GetAxis("Horizontal");
-        float lastVelocity = rb.velocity.x;
         // Reset double jump and jump count if grounded
         if (isGrounded && !isGhost)
         {
@@ -200,5 +199,6 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.flipX = true;
 
-        }    }
+        }    
+    }
 }
