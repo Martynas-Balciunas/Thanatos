@@ -19,9 +19,6 @@ public class UImanager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        // updateKeyUI(0); // test
-       // InvokeRepeating("removeHeartUI", 2f, 1.9f); // test
-      //  InvokeRepeating("addHeartUI", 2f, 2f); // test
     }
 
     void Update()

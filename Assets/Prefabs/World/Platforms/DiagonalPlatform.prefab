@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1354406699538215544}
   - component: {fileID: 4016193244503255552}
   - component: {fileID: 851502399192302302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DiagonalPlatform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ee29dd953af5ec846bc191e3c533fbba, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

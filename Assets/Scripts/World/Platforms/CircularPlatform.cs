@@ -7,10 +7,11 @@ public class CircularPlatform : MonoBehaviour
     [SerializeField] private float frequency;
     [SerializeField] private float amplitude;
     [SerializeField] private bool flip;
-
+    private Rigidbody2D rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -19,13 +20,13 @@ public class CircularPlatform : MonoBehaviour
         {
             float x = Mathf.Cos(Time.time * frequency) * amplitude;
             float y = Mathf.Sin(Time.time * frequency) * amplitude;
-            transform.position = new Vector3(x, y, transform.position.z);
+            rb.MovePosition(new Vector3(x, y, transform.position.z));
         }
         else
         {
             float x = Mathf.Cos(Time.time * -frequency) * amplitude;
             float y = Mathf.Sin(Time.time * -frequency) * amplitude;
-            transform.position = new Vector3(x, y, transform.position.z);
+            rb.MovePosition(new Vector3(x, y, transform.position.z));
         }
     }
 }
