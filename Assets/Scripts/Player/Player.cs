@@ -46,7 +46,12 @@ public class Player : MonoBehaviour
             canDoubleJump = true;
             jumpCount = 0;
         }
-
+ // Flip sprite based on movement direction
+        if (moveInput != 0 && moveInput != lastMoveInput)
+        {
+            FlipSprite(moveInput);
+            lastMoveInput = moveInput;
+        }
         // Handle horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
@@ -172,6 +177,17 @@ public class Player : MonoBehaviour
             // increase health
             // play heal effect & sound
             UImanager.Instance.addHeartUI();
+        }
+    }
+    void FlipSprite(float direction)
+    {
+        if (direction > 0)
+        {
+            spriteRenderer.flipX = false; // Face right
+        }
+        else if (direction < 0)
+        {
+            spriteRenderer.flipX = true; // Face left
         }
     }
 }
