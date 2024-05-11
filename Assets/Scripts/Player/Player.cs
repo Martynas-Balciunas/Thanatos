@@ -115,6 +115,14 @@ public class Player : MonoBehaviour
         {
             transform.SetParent(collision.collider.transform,true);
         }
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            if(keyCount > 0)
+            {
+                UseKey();
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     public void TakeDamage(int damage)
