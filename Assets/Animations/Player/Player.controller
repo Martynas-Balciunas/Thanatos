@@ -256,5 +256,3 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
-  m_PrefabAsset: {fileID: 0}
-  m_Conditions:
