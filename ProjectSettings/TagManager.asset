@@ -10,6 +10,7 @@ TagManager:
   - IronMaiden
   - Key
   - Door
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
