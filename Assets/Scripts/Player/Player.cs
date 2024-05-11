@@ -98,6 +98,10 @@ public class Player : MonoBehaviour
             UseKey();
             Destroy(collision.gameObject);
         }
+        if(collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
+        {
+            transform.SetParent(collision.collider.transform,true);
+        }
     }
 
     public void TakeDamage(int damage)
