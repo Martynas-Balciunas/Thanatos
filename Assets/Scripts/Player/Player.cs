@@ -8,24 +8,24 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
 
-    [SerializeField] private float moveSpeed = 5f;              // Horizontal movement speed
-    [SerializeField] private float aliveJumpForce = 10f;        // Force for the initial jump in alive form
-    [SerializeField] private float aliveDoubleJumpForce = 8f;   // Force for the double jump in alive form
-    [SerializeField] private float ghostJumpForce = 7f;         // Force for the initial jump in ghost form
-    [SerializeField] private float groundCheckRadius = 0.2f;    // Radius for ground check
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float aliveJumpForce = 10f;
+    [SerializeField] private float aliveDoubleJumpForce = 8f;
+    [SerializeField] private float ghostJumpForce = 7f;
+    [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private float ghostGravity;
-    [SerializeField] private Transform groundCheck;             // Transform position for ground check
-    [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
-    [SerializeField] private int maxHealth = 3;               // Maximum health of the player
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
-   
-    private Rigidbody2D rb;                   // Reference to the Rigidbody2D component
-    private bool isGrounded;                  // Whether the player is grounded
-    private bool canDoubleJump;               // Whether the player can perform a double jump
-    private int jumpCount = 0;                // Count of jumps performed
-    private int currentHealth;                // Current health of the player
-    private bool isAlive = true;              // Player state (alive)
-    private bool isGhost = false;             // Player state (ghost)
+
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private bool canDoubleJump;
+    private int jumpCount = 0;
+    private int currentHealth;
+    private bool isAlive = true;
+    private bool isGhost = false;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -34,27 +34,67 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        currentHealth = maxHealth;            // Initialize health
+        currentHealth = maxHealth;
         Instance = this;
+
+        // Debugging: Log Rigidbody2D and Collider settings
+        Debug.Log($"Rigidbody2D Body Type: {rb.bodyType}");
+        Debug.Log($"Rigidbody2D Gravity Scale: {rb.gravityScale}");
+        Debug.Log($"Rigidbody2D Collision Detection: {rb.collisionDetectionMode}");
     }
 
     private void Update()
     {
-        // Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) != null;
+        // Debugging: Log input and velocity
         float moveInput = Input.GetAxis("Horizontal");
+        Debug.Log($"Move Input: {moveInput}");
+
+        // Check if the player is grounded
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        Debug.Log($"Is Grounded: {isGrounded}");
+
         // Reset double jump and jump count if grounded
         if (isGrounded && !isGhost)
         {
             canDoubleJump = true;
             jumpCount = 0;
+            animator.SetBool("isGrounded", true); // Update animation
         }
-      
+        else
+        {
+            animator.SetBool("isGrounded", false); // Update animation
+        }
 
         // Handle horizontal movement
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-       // Flip sprite based on movement direction
-        if(rb.velocity.x  < 0)
+        Debug.Log($"Velocity: {rb.velocity}");
+
+        // Handle animations based on movement and form
+        if (isGhost)
+        {
+            if (Mathf.Abs(moveInput) > 0)
+            {
+                animator.SetBool("isHovering", false); // Stop hovering when moving
+            }
+            else
+            {
+                animator.SetBool("isHovering", true); // Hover when still
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(moveInput) > 0)
+            {
+                animator.SetBool("isWalking", true); // Walking animation when moving
+            }
+            else
+            {
+                animator.SetBool("isWalking", false); // Idle when still
+            }
+        }
+
+        // Flip sprite based on movement direction
+        if (rb.velocity.x < 0)
         {
             FlipSprite(false);
         }
@@ -62,17 +102,21 @@ public class Player : MonoBehaviour
         {
             FlipSprite(true);
         }
+
         // Jump input
         if (Input.GetButtonDown("Jump"))
         {
+            Debug.Log("Jump Button Pressed");
             if (isGrounded)
             {
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
+                animator.SetTrigger("Jump"); // Update animation
             }
             else if (canDoubleJump && jumpCount < 1)
             {
                 Jump(aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
+                animator.SetTrigger("Jump"); // Update animation
             }
         }
     }
@@ -81,6 +125,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
         jumpCount++;
+        Debug.Log($"Jumped with force: {force}");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -111,9 +156,9 @@ public class Player : MonoBehaviour
             UseKey();
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
+        if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
         {
-            transform.SetParent(collision.collider.transform,true);
+            transform.SetParent(collision.collider.transform, true);
         }
     }
 
@@ -121,14 +166,14 @@ public class Player : MonoBehaviour
     {
         if (isAlive && !isGhost)
         {
-            currentHealth -= damage; 
+            currentHealth -= damage;
             if (currentHealth <= 0)
             {
                 UImanager.Instance.removeAllHearts();
                 currentHealth = 0;
                 GameOver();
             }
-            for(int i = 0; i < damage; i++)
+            for (int i = 0; i < damage; i++)
             {
                 UImanager.Instance.removeHeartUI();
             }
@@ -144,8 +189,9 @@ public class Player : MonoBehaviour
             isAlive = true; // Keep alive state for game logic
             WorldManager.Instance.showGhostMap();
             rb.gravityScale = ghostGravity; // gravity change for ghost form
-            animator.SetBool("isDead", true); ; // Update animation to show alive state
-
+            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Ghost-Big");
+            animator.SetBool("isDead", true); // Update animation to show ghost state
+            animator.SetBool("isHovering", true); // Start hovering
         }
         else if (newState == "Alive" && isGhost)
         {
@@ -153,7 +199,9 @@ public class Player : MonoBehaviour
             isAlive = true;
             WorldManager.Instance.hideGhostMap();
             rb.gravityScale = 1; // Restore normal gravity
-            animator.SetBool("isDead", false);// Update animation to show alive state
+            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Player");
+            animator.SetBool("isDead", false); // Update animation to show alive state
+            animator.SetBool("isWalking", false); // Ensure walking is off initially
         }
     }
 
@@ -171,6 +219,7 @@ public class Player : MonoBehaviour
         keyCount++;
         UImanager.Instance.updateKeyUI(keyCount);
     }
+
     public void UseKey()
     {
         if (keyCount <= 0)
@@ -180,6 +229,7 @@ public class Player : MonoBehaviour
         keyCount--;
         UImanager.Instance.updateKeyUI(keyCount);
     }
+
     private void gainHealth() // can be removed, or healing item added
     {
         if (currentHealth < maxHealth)
@@ -189,6 +239,7 @@ public class Player : MonoBehaviour
             UImanager.Instance.addHeartUI();
         }
     }
+
     void FlipSprite(bool forwards)
     {
         if (forwards)
@@ -198,7 +249,6 @@ public class Player : MonoBehaviour
         else
         {
             spriteRenderer.flipX = true;
-
-        }    
+        }
     }
 }
