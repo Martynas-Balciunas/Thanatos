@@ -136,7 +136,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ee29dd953af5ec846bc191e3c533fbba, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -208,9 +208,9 @@ MonoBehaviour:
   moveSpeed: 5
   aliveJumpForce: 10
   aliveDoubleJumpForce: 8
-  ghostJumpForce: 7
-  ghostDoubleJumpForce: 5
+  ghostJumpForce: 10
   groundCheckRadius: 0.2
+  ghostGravity: 0.4
   groundCheck: {fileID: 9151187131051989172}
   groundLayer:
     serializedVersion: 2
