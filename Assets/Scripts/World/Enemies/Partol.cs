@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Partol : MonoBehaviour
 {
-    public GameObject PatrolPointA;
-    public GameObject PatrolPointB;
+    [SerializeField] private GameObject PatrolPointA;
+    [SerializeField] private GameObject PatrolPointB;
     [SerializeField] private float speed;
     private Rigidbody2D rigidBody;
     private Transform currentPoint;
