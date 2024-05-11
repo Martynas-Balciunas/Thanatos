@@ -5,27 +5,29 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public float moveSpeed = 5f;          // Horizontal movement speed
-    public float jumpForce = 10f;         // Force for the initial jump
-    public float doubleJumpForce = 8f;    // Force for the double jump
-    public float groundCheckRadius = 0.2f; // Radius for ground check
-    public Transform groundCheck;         // Transform position for ground check
-    public LayerMask groundLayer;         // Layer mask for ground detection
-    public int maxHealth = 100;           // Maximum health of the player
-    public GameObject hiddenTileMap;      // Reference to the hidden tile map
+    public float moveSpeed = 5f;              // Horizontal movement speed
+    public float aliveJumpForce = 10f;        // Force for the initial jump in alive form
+    public float aliveDoubleJumpForce = 8f;   // Force for the double jump in alive form
+    public float ghostJumpForce = 7f;         // Force for the initial jump in ghost form
+    public float ghostDoubleJumpForce = 5f;   // Force for the double jump in ghost form
+    public float groundCheckRadius = 0.2f;    // Radius for ground check
+    public Transform groundCheck;             // Transform position for ground check
+    public LayerMask groundLayer;             // Layer mask for ground detection
+    public int maxHealth = 100;               // Maximum health of the player
+    public GameObject hiddenTileMap;          // Reference to the hidden tile map
 
-    private Rigidbody2D rb;               // Reference to the Rigidbody2D component
-    private bool isGrounded;              // Whether the player is grounded
-    private bool canDoubleJump;           // Whether the player can perform a double jump
-    private int jumpCount = 0;            // Count of jumps performed
-    private int currentHealth;            // Current health of the player
-    private bool isAlive = true;          // Player state (alive)
-    private bool isGhost = false;         // Player state (ghost)
+    private Rigidbody2D rb;                   // Reference to the Rigidbody2D component
+    private bool isGrounded;                  // Whether the player is grounded
+    private bool canDoubleJump;               // Whether the player can perform a double jump
+    private int jumpCount = 0;                // Count of jumps performed
+    private int currentHealth;                // Current health of the player
+    private bool isAlive = true;              // Player state (alive)
+    private bool isGhost = false;             // Player state (ghost)
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;        // Initialize current health
+        currentHealth = maxHealth;            // Initialize health
     }
 
     void Update()
@@ -44,16 +46,16 @@ public class PlayerBehaviour : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // Handle jump input
+        // Jump input
         if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
             {
-                Jump(jumpForce);
+                Jump(isGhost ? ghostJumpForce : aliveJumpForce);
             }
             else if (canDoubleJump && jumpCount < 1)
             {
-                Jump(doubleJumpForce);
+                Jump(isGhost ? ghostDoubleJumpForce : aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
             }
         }
@@ -97,6 +99,7 @@ public class PlayerBehaviour : MonoBehaviour
             isGhost = true;
             isAlive = true; // Keep alive state for game logic
             hiddenTileMap.SetActive(true); // Reveal hidden tiles
+            rb.gravityScale = 0.5f; // gravity change for ghost form
             GetComponent<Animator>().SetBool("isDead", true); // Update animation to show ghost state
         }
         else if (newState == "Alive" && isGhost)
@@ -104,6 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
             isGhost = false;
             isAlive = true;
             hiddenTileMap.SetActive(false); // Hide special tiles
+            rb.gravityScale = 1; // Restore normal gravity
             GetComponent<Animator>().SetBool("isDead", false); // Update animation to show alive state
         }
     }
@@ -113,6 +117,6 @@ public class PlayerBehaviour : MonoBehaviour
         isAlive = false;
         // Handle game over logic, such as displaying a game over screen
         Debug.Log("Game Over");
-        // Additional game over actions can be added here
+        
     }
 }
