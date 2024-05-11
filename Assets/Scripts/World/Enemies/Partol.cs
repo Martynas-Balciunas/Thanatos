@@ -7,12 +7,12 @@ public class Partol : MonoBehaviour
     public GameObject PatrolPointA;
     public GameObject PatrolPointB;
     public float speed;
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigidBody;
     private Transform currentPoint;
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
         
         currentPoint = PatrolPointB.transform;
     }
@@ -23,11 +23,11 @@ public class Partol : MonoBehaviour
         Vector2 point = currentPoint.position - transform.position;
         if(currentPoint == PatrolPointB.transform)
         {
-            rigidbody2D.velocity = new Vector2(speed, 0);
+            rigidBody.velocity = new Vector2(speed, 0);
         }
         else
         {
-            rigidbody2D.velocity = new Vector2(-speed, 0);
+            rigidBody.velocity = new Vector2(-speed, 0);
         }
         
 
