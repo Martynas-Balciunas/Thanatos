@@ -11,12 +11,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float aliveJumpForce = 10f;        // Force for the initial jump in alive form
     [SerializeField] private float aliveDoubleJumpForce = 8f;   // Force for the double jump in alive form
     [SerializeField] private float ghostJumpForce = 7f;         // Force for the initial jump in ghost form
-    [SerializeField] private float ghostDoubleJumpForce = 5f;   // Force for the double jump in ghost form
     [SerializeField] private float groundCheckRadius = 0.2f;    // Radius for ground check
+    [SerializeField] private float ghostGravity;
     public Transform groundCheck;             // Transform position for ground check
     public LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private int maxHealth = 3;               // Maximum health of the player
-    [SerializeField] private int keyCount = 5;
+    [SerializeField] private int keyCount = 0;
+    private bool flipped;
 
     private Rigidbody2D rb;                   // Reference to the Rigidbody2D component
     private bool isGrounded;                  // Whether the player is grounded
@@ -26,9 +27,12 @@ public class Player : MonoBehaviour
     private bool isAlive = true;              // Player state (alive)
     private bool isGhost = false;             // Player state (ghost)
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        flipped = spriteRenderer.flipX == true;
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;            // Initialize health
         Instance = this;
@@ -38,22 +42,27 @@ public class Player : MonoBehaviour
     {
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) != null;
+        float moveInput = Input.GetAxis("Horizontal");
+        float lastVelocity = rb.velocity.x;
         // Reset double jump and jump count if grounded
-        if (isGrounded)
+        if (isGrounded && !isGhost)
         {
             canDoubleJump = true;
             jumpCount = 0;
         }
- // Flip sprite based on movement direction
-        if (moveInput != 0 && moveInput != lastMoveInput)
-        {
-            FlipSprite(moveInput);
-            lastMoveInput = moveInput;
-        }
-        // Handle horizontal movement
-        float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+      
 
+        // Handle horizontal movement
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+       // Flip sprite based on movement direction
+        if(rb.velocity.x  < 0)
+        {
+            FlipSprite(false);
+        }
+        else if (rb.velocity.x > 0)
+        {
+            FlipSprite(true);
+        }
         // Jump input
         if (Input.GetButtonDown("Jump"))
         {
@@ -63,7 +72,7 @@ public class Player : MonoBehaviour
             }
             else if (canDoubleJump && jumpCount < 1)
             {
-                Jump(isGhost ? ghostDoubleJumpForce : aliveDoubleJumpForce);
+                Jump(aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
             }
         }
@@ -135,7 +144,7 @@ public class Player : MonoBehaviour
             isGhost = true;
             isAlive = true; // Keep alive state for game logic
             WorldManager.Instance.showGhostMap();
-            rb.gravityScale = 0.5f; // gravity change for ghost form
+            rb.gravityScale = ghostGravity; // gravity change for ghost form
             animator.SetBool("isDead", true); ; // Update animation to show alive state
 
         }
@@ -181,15 +190,15 @@ public class Player : MonoBehaviour
             UImanager.Instance.addHeartUI();
         }
     }
-    void FlipSprite(float direction)
+    void FlipSprite(bool forwards)
     {
-        if (direction > 0)
+        if (forwards)
         {
-            spriteRenderer.flipX = false; // Face right
+            spriteRenderer.flipX = false;
         }
-        else if (direction < 0)
+        else
         {
-            spriteRenderer.flipX = true; // Face left
-        }
-    }
+            spriteRenderer.flipX = true;
+
+        }    }
 }
