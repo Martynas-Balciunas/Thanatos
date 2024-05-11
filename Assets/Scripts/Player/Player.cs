@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     public Transform groundCheck;             // Transform position for ground check
     public LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private int maxHealth = 3;               // Maximum health of the player
-    private WorldManager worldManager;
     [SerializeField] private int keyCount = 5;
 
     private Rigidbody2D rb;                   // Reference to the Rigidbody2D component
@@ -33,7 +32,6 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;            // Initialize health
         Instance = this;
-        worldManager = WorldManager.Instance;
     }
 
     private void Update()
@@ -127,7 +125,7 @@ public class Player : MonoBehaviour
         {
             isGhost = true;
             isAlive = true; // Keep alive state for game logic
-            worldManager.showGhostMap();
+            WorldManager.Instance.showGhostMap();
             rb.gravityScale = 0.5f; // gravity change for ghost form
             animator.SetBool("isDead", true); ; // Update animation to show alive state
 
@@ -136,7 +134,7 @@ public class Player : MonoBehaviour
         {
             isGhost = false;
             isAlive = true;
-            worldManager.hideGhostMap();
+            WorldManager.Instance.hideGhostMap();
             rb.gravityScale = 1; // Restore normal gravity
             animator.SetBool("isDead", false);// Update animation to show alive state
         }
