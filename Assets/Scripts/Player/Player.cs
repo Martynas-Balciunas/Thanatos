@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -149,7 +150,13 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("victoryDoor"))
+        {
+            SceneManager.LoadScene("Level1");
+        }
+    }
     public void TakeDamage(int damage)
     {
         if (isAlive && !isGhost)
