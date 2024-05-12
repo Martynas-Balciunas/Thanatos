@@ -129,16 +129,11 @@ public class Player : MonoBehaviour
                 ChangeForm("Alive");
             }
         }
-        if (collision.gameObject.CompareTag("Key"))
-        {
-            KeyCollected();
-            Destroy(collision.gameObject);
-        }
         if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
         {
             transform.SetParent(collision.collider.transform, true);
         }
-        if (collision.gameObject.CompareTag("Door"))
+        if (collision.gameObject.CompareTag("Door") && !isGhost)
         {
             if(keyCount > 0)
             {
@@ -149,9 +144,15 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("victoryDoor"))
+        if (collision.gameObject.CompareTag("victoryDoor") && !isGhost)
         {
-            SceneManager.LoadScene("Level1");
+            Scene current = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(current.buildIndex + 1);
+        }
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            KeyCollected();
+            Destroy(collision.gameObject);
         }
     }
     public void TakeDamage(int damage)
