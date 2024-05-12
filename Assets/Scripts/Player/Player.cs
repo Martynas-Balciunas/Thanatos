@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    public AudioSource jumpSound;
+    [SerializeField] AudioSource jumpSound;
 
 
     private void Start()
@@ -39,24 +39,16 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         Instance = this;
-
-        jumpSound.enabled = false;  //
-
-        // Debugging: Log Rigidbody2D and Collider settings
-        Debug.Log($"Rigidbody2D Body Type: {rb.bodyType}");
-        Debug.Log($"Rigidbody2D Gravity Scale: {rb.gravityScale}");
-        Debug.Log($"Rigidbody2D Collision Detection: {rb.collisionDetectionMode}");
+        jumpSound = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        // Debugging: Log input and velocity
         float moveInput = Input.GetAxis("Horizontal");
-        Debug.Log($"Move Input: {moveInput}");
 
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        Debug.Log($"Is Grounded: {isGrounded}");
+
 
         // Reset double jump and jump count if grounded
         if (isGrounded && !isGhost)
@@ -72,7 +64,7 @@ public class Player : MonoBehaviour
 
         // Handle horizontal movement
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        Debug.Log($"Velocity: {rb.velocity}");
+
 
         // Handle animations based on movement and form
         if (isGhost)
@@ -111,10 +103,8 @@ public class Player : MonoBehaviour
         // Jump input
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump Button Pressed");
             if (isGrounded)
             {
-
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
@@ -130,10 +120,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        jumpSound.enabled = true;   // Play Jump noise
-
+        jumpSound.Play();   // Play Jump noise
         jumpCount++;
-        Debug.Log($"Jumped with force: {force}");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
