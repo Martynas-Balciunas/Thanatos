@@ -1,0 +1,4 @@
+repository "Thanatoss@Humeyrra0305@cloud"
+  path "/"
+    br "/main"
+    co "/main"
