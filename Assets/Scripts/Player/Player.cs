@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    public AudioSource jumpSound;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,6 +39,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         Instance = this;
+
+        jumpSound.enabled = false;  //
 
         // Debugging: Log Rigidbody2D and Collider settings
         Debug.Log($"Rigidbody2D Body Type: {rb.bodyType}");
@@ -109,6 +114,7 @@ public class Player : MonoBehaviour
             Debug.Log("Jump Button Pressed");
             if (isGrounded)
             {
+
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
@@ -124,6 +130,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
+        jumpSound.enabled = true;   // Play Jump noise
+
         jumpCount++;
         Debug.Log($"Jumped with force: {force}");
     }
