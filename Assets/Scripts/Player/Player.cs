@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField] AudioSource jumpSound;
+    private AudioSource jumpSound;
 
 
     private void Start()
@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        UImanager.Instance.updateKeyUI(keyCount);
+
         float moveInput = Input.GetAxis("Horizontal");
 
         // Check if the player is grounded
@@ -130,11 +132,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Key"))
         {
             KeyCollected();
-            Destroy(collision.gameObject);
-        }
-        if (collision.gameObject.CompareTag("Door"))
-        {
-            UseKey();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)

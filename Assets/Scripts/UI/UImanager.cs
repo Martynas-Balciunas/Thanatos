@@ -61,15 +61,7 @@ public class UImanager : MonoBehaviour
 
     public void updateKeyUI(int keyCount)
     {
-        if(keyCount <= 99 && keyCount >= 0) // should always be true
-        {
-            keyText.text = keyCount.ToString();
-
-        }
-        else
-        {
-            updateKeyUI(0);
-        }
+       keyText.text = keyCount.ToString();
     }
     public void removeHeartUI() // call when damage taken
     {
