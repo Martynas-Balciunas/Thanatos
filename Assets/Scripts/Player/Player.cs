@@ -65,29 +65,13 @@ public class Player : MonoBehaviour
         // Handle horizontal movement
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-
-        // Handle animations based on movement and form
-        if (isGhost)
+        if (Mathf.Abs(moveInput) > 0)
         {
-            if (Mathf.Abs(moveInput) > 0)
-            {
-                animator.SetBool("isHovering", false); // Stop hovering when moving
-            }
-            else
-            {
-                animator.SetBool("isHovering", true); // Hover when still
-            }
+            animator.SetBool("isWalking", true); // Walking animation when moving
         }
         else
         {
-            if (Mathf.Abs(moveInput) > 0)
-            {
-                animator.SetBool("isWalking", true); // Walking animation when moving
-            }
-            else
-            {
-                animator.SetBool("isWalking", false); // Idle when still
-            }
+            animator.SetBool("isWalking", false); // Idle when still
         }
 
         // Flip sprite based on movement direction
@@ -193,9 +177,7 @@ public class Player : MonoBehaviour
             isAlive = true; // Keep alive state for game logic
             WorldManager.Instance.showGhostMap();
             rb.gravityScale = ghostGravity; // gravity change for ghost form
-            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Ghost-Big");
             animator.SetBool("isDead", true); // Update animation to show ghost state
-            animator.SetBool("isHovering", true); // Start hovering
         }
         else if (newState == "Alive" && isGhost)
         {
@@ -203,7 +185,6 @@ public class Player : MonoBehaviour
             isAlive = true;
             WorldManager.Instance.hideGhostMap();
             rb.gravityScale = 1; // Restore normal gravity
-            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Player");
             animator.SetBool("isDead", false); // Update animation to show alive state
             animator.SetBool("isWalking", false); // Ensure walking is off initially
         }
