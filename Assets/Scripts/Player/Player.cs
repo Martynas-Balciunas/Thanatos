@@ -1,82 +1,239 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    [SerializeField] private int health = 3;
+
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float aliveJumpForce = 10f;
+    [SerializeField] private float aliveDoubleJumpForce = 8f;
+    [SerializeField] private float ghostJumpForce = 7f;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private float ghostGravity;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
-    private UImanager uiManager;
-    private WorldManager worldManager;
 
-    void Start()
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private bool canDoubleJump;
+    private int jumpCount = 0;
+    private int currentHealth;
+    private bool isAlive = true;
+    private bool isGhost = false;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField] AudioSource jumpSound;
+
+
+    private void Start()
     {
-        uiManager = UImanager.Instance;
-        worldManager = WorldManager.Instance;
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        currentHealth = maxHealth;
         Instance = this;
+        jumpSound = GetComponent<AudioSource>();
     }
 
-    void Update()
+    private void Update()
     {
-        
-    }
+        float moveInput = Input.GetAxis("Horizontal");
 
-    public void takeDamage()
-    {
-        // reduce health
-        // play damage effect & sound (can be seperate function)
-        uiManager.removeHeartUI();
-        enterGhostForm();
-    }
+        // Check if the player is grounded
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-    private void gainHealth() // can be removed, or healing item added
-    {
-        if(health < maxHealth)
+
+        // Reset double jump and jump count if grounded
+        if (isGrounded && !isGhost)
         {
-            // increase health
-            // play heal effect & sound
-            uiManager.addHeartUI();
+            canDoubleJump = true;
+            jumpCount = 0;
+            animator.SetBool("isGrounded", true); // Update animation
+        }
+        else
+        {
+            animator.SetBool("isGrounded", false); // Update animation
         }
 
+        // Handle horizontal movement
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+
+        if (Mathf.Abs(moveInput) > 0)
+        {
+            animator.SetBool("isWalking", true); // Walking animation when moving
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); // Idle when still
+        }
+
+        // Flip sprite based on movement direction
+        if (rb.velocity.x < 0)
+        {
+            FlipSprite(false);
+        }
+        else if (rb.velocity.x > 0)
+        {
+            FlipSprite(true);
+        }
+
+        // Jump input
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
+            {
+                Jump(isGhost ? ghostJumpForce : aliveJumpForce);
+                animator.SetTrigger("Jump"); // Update animation
+            }
+            else if (canDoubleJump && jumpCount < 1)
+            {
+                Jump(aliveDoubleJumpForce);
+                canDoubleJump = false; // Disable double jump after usage
+                animator.SetTrigger("Jump"); // Update animation
+            }
+        }
     }
 
-    public void death()
+    private void Jump(float force)
     {
-        // Set health to 0
+        rb.velocity = new Vector2(rb.velocity.x, force);
+        jumpSound.Play();   // Play Jump noise
+        jumpCount++;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hazzard"))
+        {
+            TakeDamage(1);
+        }
+        if (collision.gameObject.CompareTag("IronMaiden"))
+        {
+            if (!isGhost)
+            {
+                TakeDamage(1);
+                ChangeForm("Ghost");
+            }
+            else
+            {
+                ChangeForm("Alive");
+            }
+        }
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            KeyCollected();
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            UseKey();
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
+        {
+            transform.SetParent(collision.collider.transform, true);
+        }
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            if(keyCount > 0)
+            {
+                UseKey();
+                Destroy(collision.gameObject);
+            }
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (isAlive && !isGhost)
+        {
+            currentHealth -= damage;
+            if (currentHealth <= 0)
+            {
+                UImanager.Instance.removeAllHearts();
+                currentHealth = 0;
+                GameOver();
+            }
+            for (int i = 0; i < damage; i++)
+            {
+                UImanager.Instance.removeHeartUI();
+            }
+            ChangeForm("Ghost");
+        }
+    }
+
+    private void ChangeForm(string newState)
+    {
+        if (newState == "Ghost" && !isGhost)
+        {
+            isGhost = true;
+            isAlive = true; // Keep alive state for game logic
+            WorldManager.Instance.showGhostMap();
+            rb.gravityScale = ghostGravity; // gravity change for ghost form
+            animator.SetBool("isDead", true); // Update animation to show ghost state
+        }
+        else if (newState == "Alive" && isGhost)
+        {
+            isGhost = false;
+            isAlive = true;
+            WorldManager.Instance.hideGhostMap();
+            rb.gravityScale = 1; // Restore normal gravity
+            animator.SetBool("isDead", false); // Update animation to show alive state
+            animator.SetBool("isWalking", false); // Ensure walking is off initially
+        }
+    }
+
+    private void GameOver()
+    {
+        isAlive = false;
+        currentHealth = 0;
         // Play death effects & sound
-        uiManager.removeAllHearts(); // ensures no hearts in case instant death
-        uiManager.showLossMenu();
+        UImanager.Instance.removeAllHearts(); // ensures no hearts in case instant death
+        UImanager.Instance.showLossMenu();
     }
 
-    private void enterGhostForm()
-    {
-        // adjust values like double jump floaty jump ability to take dmg etc
-        // can add effects & sound or can use ones in death
-        worldManager.showGhostMap();
-    }
-
-    private void enterAliveForm()
-    {
-        // adjust values like double jump floaty jump ability to take dmg etc
-        // can add effects & sound
-        worldManager.hideGhostMap();
-    }
-
-    public void keyCollected()
+    public void KeyCollected()
     {
         keyCount++;
-        uiManager.updateKeyUI(keyCount);
+        UImanager.Instance.updateKeyUI(keyCount);
     }
-    public void useKey()
+
+    public void UseKey()
     {
-        if (!(keyCount > 0))
+        if (keyCount <= 0)
         {
             return;
         }
         keyCount--;
-        uiManager.updateKeyUI(keyCount);
+        UImanager.Instance.updateKeyUI(keyCount);
     }
 
+    private void gainHealth() // can be removed, or healing item added
+    {
+        if (currentHealth < maxHealth)
+        {
+            // increase health
+            // play heal effect & sound
+            UImanager.Instance.addHeartUI();
+        }
+    }
+
+    void FlipSprite(bool forwards)
+    {
+        if (forwards)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
 }

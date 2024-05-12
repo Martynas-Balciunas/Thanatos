@@ -8,6 +8,9 @@ TagManager:
   - InstantDeath
   - Ground
   - IronMaiden
+  - Key
+  - Door
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
