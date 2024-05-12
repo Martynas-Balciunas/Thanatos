@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlatformMover : MonoBehaviour
+public class VerticalPlatform : MonoBehaviour
 {
     [SerializeField] private float frequency;
     [SerializeField] private float amplitude;
