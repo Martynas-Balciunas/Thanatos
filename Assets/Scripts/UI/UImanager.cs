@@ -17,15 +17,23 @@ public class UImanager : MonoBehaviour
     [SerializeField] private GameObject lossMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
-    private float timer;
+
     void Start()
     {
         Instance = this;
+
     }
 
     void LateUpdate()
     {
-      
+        if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 1f)
+        {
+            Pause();
+        }
+        else if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 0f)
+        {
+            unPauseOnClick();
+        }
 
     }
 
@@ -152,5 +160,6 @@ public class UImanager : MonoBehaviour
         SceneManager.LoadScene("TutorialLevel");
         // SceneManager.LoadScene("Tutorial");
     }
-    
+
+
 }
