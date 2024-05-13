@@ -77,6 +77,8 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(moveInput) > 0)
         {
             animator.SetBool("isWalking", true); // Walking animation when moving
+
+            //Plays walk if grounded and moving
             if(isGrounded)
             {
                 //walkSound.Play();
