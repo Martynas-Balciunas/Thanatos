@@ -342,7 +342,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679656903837112952}
-  - component: {fileID: 5526605959001649306}
   m_Layer: 0
   m_Name: Pendulum
   m_TagString: Hazzard
@@ -367,18 +366,3 @@ Transform:
   - {fileID: 8335815051403191325}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5526605959001649306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5093540366901603555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b6bd77e8a69417db7b24e8ab12afb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  leftAngle: 2
-  rightAngle: 2
