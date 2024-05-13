@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
     [SerializeField] private LayerMask ghostCollisionLayer;
-
+    [SerializeField] private AudioSource[] soundFX;
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool canDoubleJump;
@@ -30,12 +30,10 @@ public class Player : MonoBehaviour
     private bool isGhost = false;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-
-    private AudioSource audioSource;
-    private AudioClip jumpSound;
-    private AudioClip walkSound;
-
     private Transform originalParent;
+
+    private AudioSource jumpSound;
+    private AudioSource walkSound;
 
     private void Start()
     {
@@ -44,8 +42,19 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         Instance = this;
+        soundFX = GetComponents<AudioSource>();
 
-        audioSource.GetComponents<AudioSource>();
+        foreach (AudioSource audioClip in soundFX)
+        {
+            if(audioClip.clip.name == "Jump")
+            {
+                jumpSound = audioClip;
+            }
+            else if (audioClip.clip.name == "Walk")
+            {
+                walkSound = audioClip;
+            }
+        }
 
         originalParent = transform.parent;
     }
@@ -79,20 +88,20 @@ public class Player : MonoBehaviour
             animator.SetBool("isWalking", true); // Walking animation when moving
             if(isGrounded)
             {
-                //walkSound.Play();
-                //walkSound.loop = true;
+                walkSound.Play();
+                walkSound.loop = true;
             }
             else
             {
-                //walkSound.Stop();
-                //walkSound.loop = false;
+                walkSound.Stop();
+                walkSound.loop = false;
             }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            //walkSound.loop = false;
-            //walkSound.Stop();
+            walkSound.loop = false;
+            walkSound.Stop();
         }
 
         // Flip sprite based on movement direction
@@ -126,7 +135,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
         jumpCount++;
-        audioSource.PlayOneShot(jumpSound, 1f);
+        jumpSound.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
