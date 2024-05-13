@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
     [SerializeField] private LayerMask ghostCollisionLayer;
-
+    [SerializeField] private AudioSource[] soundFX;
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool canDoubleJump;
@@ -30,10 +30,10 @@ public class Player : MonoBehaviour
     private bool isGhost = false;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private Transform originalParent;
 
     private AudioSource jumpSound;
-
-    private Transform originalParent;
+    private AudioSource walkSound;
 
     private void Start()
     {
@@ -42,7 +42,20 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         Instance = this;
-        jumpSound = GetComponent<AudioSource>();
+        soundFX = GetComponents<AudioSource>();
+
+        foreach (AudioSource audioClip in soundFX)
+        {
+            if(audioClip.clip.name == "Jump")
+            {
+                jumpSound = audioClip;
+            }
+            else if (audioClip.clip.name == "walk")
+            {
+                walkSound = audioClip;
+            }
+        }
+
         originalParent = transform.parent;
     }
 
@@ -73,10 +86,22 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(moveInput) > 0)
         {
             animator.SetBool("isWalking", true); // Walking animation when moving
+            if(isGrounded)
+            {
+                walkSound.Play();
+                walkSound.loop = true;
+            }
+            else
+            {
+                walkSound.Stop();
+                walkSound.loop = false;
+            }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
+            walkSound.loop = false;
+            walkSound.Stop();
         }
 
         // Flip sprite based on movement direction
@@ -97,7 +122,7 @@ public class Player : MonoBehaviour
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
-            else if (canDoubleJump && jumpCount < 1)
+            else if (canDoubleJump && jumpCount < 1 )
             {
                 Jump(aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
@@ -109,8 +134,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        jumpSound.Play();   // Play Jump noise
         jumpCount++;
+        jumpSound.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
