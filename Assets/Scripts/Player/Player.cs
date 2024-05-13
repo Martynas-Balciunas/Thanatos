@@ -31,8 +31,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    public AudioSource jumpSound;
-    public AudioSource walkSound;
+    private AudioSource audioSource;
+    private AudioClip jumpSound;
+    private AudioClip walkSound;
 
     private Transform originalParent;
 
@@ -44,9 +45,7 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         Instance = this;
 
-        //walkSound = GetComponent<AudioSource>();
-        jumpSound = GetComponent<AudioSource>();
-        //audioSource.GetComponents<AudioSource>();
+        audioSource.GetComponents<AudioSource>();
 
         originalParent = transform.parent;
     }
@@ -78,21 +77,22 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(moveInput) > 0)
         {
             animator.SetBool("isWalking", true); // Walking animation when moving
-
-            //Plays walk if grounded and moving
             if(isGrounded)
             {
-                //play noise
+                //walkSound.Play();
+                //walkSound.loop = true;
             }
             else
             {
-                //stop noise
+                //walkSound.Stop();
+                //walkSound.loop = false;
             }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            //stop noise
+            //walkSound.loop = false;
+            //walkSound.Stop();
         }
 
         // Flip sprite based on movement direction
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
-            else if (canDoubleJump && jumpCount < 1)
+            else if (canDoubleJump && jumpCount < 1 )
             {
                 Jump(aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
@@ -125,9 +125,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        jumpSound.Play();
-        Debug.Log("Jumped");
         jumpCount++;
+        audioSource.PlayOneShot(jumpSound, 1f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
