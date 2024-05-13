@@ -31,9 +31,8 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    private AudioSource audioSource;
-    private AudioClip jumpSound;
-    private AudioClip walkSound;
+    public AudioSource jumpSound;
+    public AudioSource walkSound;
 
     private Transform originalParent;
 
@@ -45,7 +44,9 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         Instance = this;
 
-        audioSource.GetComponents<AudioSource>();
+        //walkSound = GetComponent<AudioSource>();
+        jumpSound = GetComponent<AudioSource>();
+        //audioSource.GetComponents<AudioSource>();
 
         originalParent = transform.parent;
     }
@@ -81,20 +82,17 @@ public class Player : MonoBehaviour
             //Plays walk if grounded and moving
             if(isGrounded)
             {
-                //walkSound.Play();
-                //walkSound.loop = true;
+                //play noise
             }
             else
             {
-                //walkSound.Stop();
-                //walkSound.loop = false;
+                //stop noise
             }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            //walkSound.loop = false;
-            //walkSound.Stop();
+            //stop noise
         }
 
         // Flip sprite based on movement direction
@@ -127,7 +125,7 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        audioSource.PlayOneShot(jumpSound, 1f);     //should play jump but doesnt rn
+        jumpSound.Play();
         Debug.Log("Jumped");
         jumpCount++;
     }
