@@ -194,7 +194,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("victoryDoor"))
         {
-            SceneManager.LoadScene("Level1");
+            Scene current = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(current.buildIndex + 1);
         }
         if (collision.gameObject.CompareTag("Hazzard"))
         {
