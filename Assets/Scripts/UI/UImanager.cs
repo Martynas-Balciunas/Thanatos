@@ -21,9 +21,18 @@ public class UImanager : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    void LateUpdate()
     {
-      
+        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1f)
+        {
+            Debug.Log("escape");
+            Pause();
+        }
+        else if (Time.timeScale == 0f && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("escape");
+            unPauseOnClick();
+        }
     }
 
     private void OnApplicationPause(bool pauseStatus) {
