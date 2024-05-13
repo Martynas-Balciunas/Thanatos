@@ -148,6 +148,10 @@ public class Player : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+        if (collision.gameObject.CompareTag("InstantDeath"))
+        {
+            TakeDamage(currentHealth);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -171,6 +175,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("victoryDoor"))
         {
             SceneManager.LoadScene("Level1");
+        }
+        if (collision.gameObject.CompareTag("Hazzard"))
+        {
+            if (!isGhost)
+            {
+                TakeDamage(1);
+                ChangeForm("Ghost");
+            }
         }
     }
 
@@ -213,7 +225,7 @@ public class Player : MonoBehaviour
             animator.SetBool("isDead", true); // Update animation to show ghost state
 
             // Ignore collisions with ground layer
-            Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
+            // Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
 
             // Enable collisions with ghost collision layer
             Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, false);
