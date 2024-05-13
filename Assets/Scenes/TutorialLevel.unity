@@ -8103,19 +8103,19 @@ PrefabInstance:
       objectReference: {fileID: 626721882}
     - target: {fileID: 4197754507818793294, guid: 011792df31e722d49ab68a87ddd800a0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4197754507818793294, guid: 011792df31e722d49ab68a87ddd800a0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4197754507818793294, guid: 011792df31e722d49ab68a87ddd800a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.88
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 4197754507818793294, guid: 011792df31e722d49ab68a87ddd800a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.21
+      value: 8.2
       objectReference: {fileID: 0}
     - target: {fileID: 4197754507818793294, guid: 011792df31e722d49ab68a87ddd800a0, type: 3}
       propertyPath: m_LocalPosition.z
