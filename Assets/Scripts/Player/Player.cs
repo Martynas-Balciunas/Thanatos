@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
             else if (audioClip.clip.name == "walk")
             {
                 walkSound = audioClip;
+                walkSound.Play();
+                walkSound.Pause();
             }
         }
 
@@ -86,14 +88,16 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(moveInput) > 0)
         {
             animator.SetBool("isWalking", true); // Walking animation when moving
-            if(isGrounded)
+
+            if( isGrounded && isGhost==false)
             {
-                walkSound.Play();
+                //walkSound.Play();
+                walkSound.UnPause();
                 walkSound.loop = true;
             }
             else
             {
-                walkSound.Stop();
+                //walkSound.Stop();
                 walkSound.loop = false;
             }
         }
