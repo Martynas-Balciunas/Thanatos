@@ -125,7 +125,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        audioSource.PlayOneShot(jumpSound, 1f);
+        audioSource.PlayOneShot(jumpSound, 1f);     //should play jump but doesnt rn
+        Debug.Log("Jumped");
         jumpCount++;
     }
 
