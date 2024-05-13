@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
             animator.SetBool("isDead", true); // Update animation to show ghost state
 
             // Ignore collisions with ground layer
-            Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
+            // Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
 
             // Enable collisions with ghost collision layer
             Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, false);
