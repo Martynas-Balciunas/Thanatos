@@ -6,6 +6,8 @@ using UnityEngine.Timeline;
 using TMPro;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
+using Unity.VisualScripting;
 
 public class UImanager : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class UImanager : MonoBehaviour
     [SerializeField] private GameObject lossMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
-
+    private float timer;
     void Start()
     {
         Instance = this;
@@ -23,16 +25,8 @@ public class UImanager : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1f)
-        {
-            Debug.Log("escape");
-            Pause();
-        }
-        else if (Time.timeScale == 0f && Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("escape");
-            unPauseOnClick();
-        }
+      
+
     }
 
     private void OnApplicationPause(bool pauseStatus) {
@@ -158,4 +152,5 @@ public class UImanager : MonoBehaviour
         SceneManager.LoadScene("TutorialLevel");
         // SceneManager.LoadScene("Tutorial");
     }
+    
 }
