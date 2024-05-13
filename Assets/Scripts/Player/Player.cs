@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
+    [SerializeField] private LayerMask ghostCollisionLayer;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -30,8 +31,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField] AudioSource jumpSound;
+    private AudioSource jumpSound;
 
+    private Transform originalParent;
 
     private void Start()
     {
@@ -41,15 +43,17 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         Instance = this;
         jumpSound = GetComponent<AudioSource>();
+        originalParent = transform.parent;
     }
 
     private void Update()
     {
+        UImanager.Instance.updateKeyUI(keyCount);
+
         float moveInput = Input.GetAxis("Horizontal");
 
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
 
         // Reset double jump and jump count if grounded
         if (isGrounded && !isGhost)
@@ -132,12 +136,7 @@ public class Player : MonoBehaviour
             KeyCollected();
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("Door"))
-        {
-            UseKey();
-            Destroy(collision.gameObject);
-        }
-        if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
+        if (collision.gameObject.CompareTag("MovingPlatform"))
         {
             transform.SetParent(collision.collider.transform, true);
         }
@@ -149,14 +148,44 @@ public class Player : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+        if (collision.gameObject.CompareTag("InstantDeath"))
+        {
+            TakeDamage(currentHealth);
+        }
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            transform.SetParent(collision.collider.transform, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            transform.SetParent(originalParent, true);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("victoryDoor"))
         {
             SceneManager.LoadScene("Level1");
         }
+        if (collision.gameObject.CompareTag("Hazzard"))
+        {
+            if (!isGhost)
+            {
+                TakeDamage(1);
+                ChangeForm("Ghost");
+            }
+        }
     }
+
     public void TakeDamage(int damage)
     {
         if (isAlive && !isGhost)
@@ -178,6 +207,15 @@ public class Player : MonoBehaviour
 
     private void ChangeForm(string newState)
     {
+        int groundLayerIndex = LayerMask.NameToLayer("Ground");
+        int ghostCollisionLayerIndex = LayerMask.NameToLayer("GhostCollision");
+
+        if (groundLayerIndex == -1 || ghostCollisionLayerIndex == -1)
+        {
+            Debug.LogError("Layer names not correctly set up. Please check 'Ground' and 'GhostCollision' layers.");
+            return;
+        }
+
         if (newState == "Ghost" && !isGhost)
         {
             isGhost = true;
@@ -185,6 +223,12 @@ public class Player : MonoBehaviour
             WorldManager.Instance.showGhostMap();
             rb.gravityScale = ghostGravity; // gravity change for ghost form
             animator.SetBool("isDead", true); // Update animation to show ghost state
+
+            // Ignore collisions with ground layer
+            // Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
+
+            // Enable collisions with ghost collision layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, false);
         }
         else if (newState == "Alive" && isGhost)
         {
@@ -194,6 +238,12 @@ public class Player : MonoBehaviour
             rb.gravityScale = 1; // Restore normal gravity
             animator.SetBool("isDead", false); // Update animation to show alive state
             animator.SetBool("isWalking", false); // Ensure walking is off initially
+
+            // Restore collisions with ground layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, false);
+
+            // Disable collisions with ghost collision layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, true);
         }
     }
 
