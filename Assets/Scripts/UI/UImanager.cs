@@ -146,7 +146,7 @@ public class UImanager : MonoBehaviour
     public void startNewGame() 
     {
         Time.timeScale = 1f; // Ensure the time scale is reset before starting a new game
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("TutorialLevel");
         // SceneManager.LoadScene("Tutorial");
     }
 }
