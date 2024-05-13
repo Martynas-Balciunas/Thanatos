@@ -133,13 +133,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1231310831786261250, guid: 609f899319065314abf04b496b03f8d1, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231310831786261250, guid: 609f899319065314abf04b496b03f8d1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1335776660702823321, guid: 609f899319065314abf04b496b03f8d1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.836
       objectReference: {fileID: 0}
     - target: {fileID: 1335776660702823321, guid: 609f899319065314abf04b496b03f8d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.578
+      value: 5.07
       objectReference: {fileID: 0}
     - target: {fileID: 1335776660702823321, guid: 609f899319065314abf04b496b03f8d1, type: 3}
       propertyPath: m_LocalPosition.z
