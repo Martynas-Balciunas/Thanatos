@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
-            else if (canDoubleJump && jumpCount < 1)
+            else if (canDoubleJump && jumpCount < 1 )
             {
                 Jump(aliveDoubleJumpForce);
                 canDoubleJump = false; // Disable double jump after usage
@@ -125,8 +125,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        audioSource.PlayOneShot(jumpSound, 1f);
         jumpCount++;
+        audioSource.PlayOneShot(jumpSound, 1f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

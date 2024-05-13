@@ -7,7 +7,7 @@ using UnityEngine;
 public class Crumbling : MonoBehaviour
 {
     [SerializeField] private float crumbleTimeSeconds;
-    private int timer;
+    private float timer;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -17,9 +17,9 @@ public class Crumbling : MonoBehaviour
         }
     }
 
-    private IEnumerator StartTimer(int totalTime)
+    private IEnumerator StartTimer(float totalTime)
     {
-        timer = 0;
+        timer = 0f;
         while (timer < totalTime)
         {
             yield return new WaitForSecondsRealtime(1);
