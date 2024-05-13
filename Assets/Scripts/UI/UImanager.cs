@@ -8,7 +8,6 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class UImanager : MonoBehaviour
-
 {
     public static UImanager Instance; // reference to UIManager --> UImanager.Instance
     [SerializeField] private TMP_Text keyText;
@@ -16,6 +15,7 @@ public class UImanager : MonoBehaviour
     [SerializeField] private GameObject lossMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
+
     void Start()
     {
         Instance = this;
@@ -40,6 +40,7 @@ public class UImanager : MonoBehaviour
             pauseMenu.SetActive(true);
         }
     }
+
     public void unPauseOnClick()
     {
         Time.timeScale = 1f;
@@ -49,6 +50,7 @@ public class UImanager : MonoBehaviour
         }
 
     }
+
     public void saveOnClick()
     {
         // to be implemented
@@ -61,28 +63,22 @@ public class UImanager : MonoBehaviour
 
     public void updateKeyUI(int keyCount)
     {
-        if(keyCount <= 99 && keyCount >= 0) // should always be true
-        {
-            keyText.text = keyCount.ToString();
-
-        }
-        else
-        {
-            updateKeyUI(0);
-        }
+       keyText.text = keyCount.ToString();
     }
+
     public void removeHeartUI() // call when damage taken
     {
         for(int i = hearts.Count() - 1; i >= 0; i--) // reverse through array
         {
             if (hearts[i].activeInHierarchy) // if heart is active
             {
-                hearts[i].SetActive(false); // make it innactive
+                hearts[i].SetActive(false); // make it inactive
                 // can add heart loss effect function call here
                 break; // exit
             }
         }
     }
+
     public void addHeartUI() // call when healed
     {
         for (int i = 0; i < hearts.Count(); i ++) // check through array
@@ -107,6 +103,7 @@ public class UImanager : MonoBehaviour
 
         }
     }
+
     public void showLossMenu()
     {
         Time.timeScale = 0f;
@@ -115,18 +112,23 @@ public class UImanager : MonoBehaviour
 
     public void resetCurrentScene()
     {
+        Time.timeScale = 1f; // Ensure the time scale is reset before reloading
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
     }
+
     public void goToMainMenu()
     {
+        Time.timeScale = 1f; // Ensure the time scale is reset before loading the main menu
         SceneManager.LoadScene("MainMenu");
     }
+
     public void showSettingsMenu()
     {
         Time.timeScale = 0f;
         settingsMenu.SetActive(true);
     }
+
     public void hideSettingsMenu()
     {
         Time.timeScale = 1f;
@@ -135,14 +137,16 @@ public class UImanager : MonoBehaviour
 
     public void continuePreviousGame()
     {
-       if (!saveManager.Instance.doesSaveDataExist())
+        if (!saveManager.Instance.doesSaveDataExist())
         {
             startNewGame();
         }
     }
+
     public void startNewGame() 
     {
+        Time.timeScale = 1f; // Ensure the time scale is reset before starting a new game
         SceneManager.LoadScene("Level1");
-       // SceneManager.LoadScene("Tutorial");
+        // SceneManager.LoadScene("Tutorial");
     }
 }

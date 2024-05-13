@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int keyCount = 0;
+    [SerializeField] private LayerMask ghostCollisionLayer;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -29,8 +31,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    public AudioSource jumpSound;
+    private AudioSource jumpSound;
 
+    private Transform originalParent;
 
     private void Start()
     {
@@ -39,24 +42,18 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         Instance = this;
-
-        jumpSound.enabled = false;  //
-
-        // Debugging: Log Rigidbody2D and Collider settings
-        Debug.Log($"Rigidbody2D Body Type: {rb.bodyType}");
-        Debug.Log($"Rigidbody2D Gravity Scale: {rb.gravityScale}");
-        Debug.Log($"Rigidbody2D Collision Detection: {rb.collisionDetectionMode}");
+        jumpSound = GetComponent<AudioSource>();
+        originalParent = transform.parent;
     }
 
     private void Update()
     {
-        // Debugging: Log input and velocity
+        UImanager.Instance.updateKeyUI(keyCount);
+
         float moveInput = Input.GetAxis("Horizontal");
-        Debug.Log($"Move Input: {moveInput}");
 
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        Debug.Log($"Is Grounded: {isGrounded}");
 
         // Reset double jump and jump count if grounded
         if (isGrounded && !isGhost)
@@ -72,30 +69,14 @@ public class Player : MonoBehaviour
 
         // Handle horizontal movement
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        Debug.Log($"Velocity: {rb.velocity}");
 
-        // Handle animations based on movement and form
-        if (isGhost)
+        if (Mathf.Abs(moveInput) > 0)
         {
-            if (Mathf.Abs(moveInput) > 0)
-            {
-                animator.SetBool("isHovering", false); // Stop hovering when moving
-            }
-            else
-            {
-                animator.SetBool("isHovering", true); // Hover when still
-            }
+            animator.SetBool("isWalking", true); // Walking animation when moving
         }
         else
         {
-            if (Mathf.Abs(moveInput) > 0)
-            {
-                animator.SetBool("isWalking", true); // Walking animation when moving
-            }
-            else
-            {
-                animator.SetBool("isWalking", false); // Idle when still
-            }
+            animator.SetBool("isWalking", false); // Idle when still
         }
 
         // Flip sprite based on movement direction
@@ -111,10 +92,8 @@ public class Player : MonoBehaviour
         // Jump input
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump Button Pressed");
             if (isGrounded)
             {
-
                 Jump(isGhost ? ghostJumpForce : aliveJumpForce);
                 animator.SetTrigger("Jump"); // Update animation
             }
@@ -130,10 +109,8 @@ public class Player : MonoBehaviour
     private void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
-        jumpSound.enabled = true;   // Play Jump noise
-
+        jumpSound.Play();   // Play Jump noise
         jumpCount++;
-        Debug.Log($"Jumped with force: {force}");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -159,12 +136,7 @@ public class Player : MonoBehaviour
             KeyCollected();
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("Door"))
-        {
-            UseKey();
-            Destroy(collision.gameObject);
-        }
-        if (collision.gameObject.CompareTag("MovingPlatform") && isGrounded)
+        if (collision.gameObject.CompareTag("MovingPlatform"))
         {
             transform.SetParent(collision.collider.transform, true);
         }
@@ -175,6 +147,30 @@ public class Player : MonoBehaviour
                 UseKey();
                 Destroy(collision.gameObject);
             }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            transform.SetParent(collision.collider.transform, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            transform.SetParent(originalParent, true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("victoryDoor"))
+        {
+            SceneManager.LoadScene("Level1");
         }
     }
 
@@ -199,15 +195,28 @@ public class Player : MonoBehaviour
 
     private void ChangeForm(string newState)
     {
+        int groundLayerIndex = LayerMask.NameToLayer("Ground");
+        int ghostCollisionLayerIndex = LayerMask.NameToLayer("GhostCollision");
+
+        if (groundLayerIndex == -1 || ghostCollisionLayerIndex == -1)
+        {
+            Debug.LogError("Layer names not correctly set up. Please check 'Ground' and 'GhostCollision' layers.");
+            return;
+        }
+
         if (newState == "Ghost" && !isGhost)
         {
             isGhost = true;
             isAlive = true; // Keep alive state for game logic
             WorldManager.Instance.showGhostMap();
             rb.gravityScale = ghostGravity; // gravity change for ghost form
-            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Ghost-Big");
             animator.SetBool("isDead", true); // Update animation to show ghost state
-            animator.SetBool("isHovering", true); // Start hovering
+
+            // Ignore collisions with ground layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, true);
+
+            // Enable collisions with ghost collision layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, false);
         }
         else if (newState == "Alive" && isGhost)
         {
@@ -215,9 +224,14 @@ public class Player : MonoBehaviour
             isAlive = true;
             WorldManager.Instance.hideGhostMap();
             rb.gravityScale = 1; // Restore normal gravity
-            animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Player");
             animator.SetBool("isDead", false); // Update animation to show alive state
             animator.SetBool("isWalking", false); // Ensure walking is off initially
+
+            // Restore collisions with ground layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, groundLayerIndex, false);
+
+            // Disable collisions with ghost collision layer
+            Physics2D.IgnoreLayerCollision(gameObject.layer, ghostCollisionLayerIndex, true);
         }
     }
 

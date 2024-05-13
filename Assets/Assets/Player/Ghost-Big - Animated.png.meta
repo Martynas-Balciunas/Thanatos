@@ -1,0 +1,496 @@
+fileFormatVersion: 2
+guid: a80d924440a96d8458bffc164a298b45
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8293944580863591524
+    second: Ghost-Big - Animated_0
+  - first:
+      213: -372387053453565623
+    second: Ghost-Big - Animated_1
+  - first:
+      213: -8764574353190912248
+    second: Ghost-Big - Animated_2
+  - first:
+      213: -6344264470150418621
+    second: Ghost-Big - Animated_3
+  - first:
+      213: -6236011385371380391
+    second: Ghost-Big - Animated_4
+  - first:
+      213: -1877316887324440564
+    second: Ghost-Big - Animated_5
+  - first:
+      213: -8699119732451928513
+    second: Ghost-Big - Animated_6
+  - first:
+      213: -7871903981917842571
+    second: Ghost-Big - Animated_7
+  - first:
+      213: -7966902073119937959
+    second: Ghost-Big - Animated_8
+  - first:
+      213: 230877096988470417
+    second: Ghost-Big - Animated_9
+  - first:
+      213: 7624326561008125993
+    second: Ghost-Big - Animated_10
+  - first:
+      213: -8423875322613020108
+    second: Ghost-Big - Animated_11
+  - first:
+      213: -1240805161219986027
+    second: Ghost-Big - Animated_12
+  - first:
+      213: -8588943630912567574
+    second: Ghost-Big - Animated_13
+  - first:
+      213: 1797222246839553155
+    second: Ghost-Big - Animated_14
+  - first:
+      213: -383473876651062531
+    second: Ghost-Big - Animated_15
+  - first:
+      213: -1084623888259547121
+    second: Ghost-Big - Animated_16
+  - first:
+      213: -1891185025276830064
+    second: Ghost-Big - Animated_17
+  - first:
+      213: -836569504170789786
+    second: Ghost-Big - Animated_18
+  - first:
+      213: 2489747610100718451
+    second: Ghost-Big - Animated_19
+  - first:
+      213: 4715642906137261733
+    second: Ghost-Big - Animated_20
+  - first:
+      213: 5302513593837541682
+    second: Ghost-Big - Animated_21
+  - first:
+      213: 3157445794380248048
+    second: Ghost-Big - Animated_22
+  - first:
+      213: -5924233827561497516
+    second: Ghost-Big - Animated_23
+  - first:
+      213: -6598064877785853201
+    second: Ghost-Big - Animated_24
+  - first:
+      213: 7401268230389511066
+    second: Ghost-Big - Animated_25
+  - first:
+      213: -4265267065692097144
+    second: Ghost-Big - Animated_26
+  - first:
+      213: 8965146016782371855
+    second: Ghost-Big - Animated_27
+  - first:
+      213: 5734507261356368683
+    second: Ghost-Big - Animated_28
+  - first:
+      213: 2659297810826167816
+    second: Ghost-Big - Animated_29
+  - first:
+      213: 2417073531417538614
+    second: Ghost-Big - Animated_30
+  - first:
+      213: -4437510667975373158
+    second: Ghost-Big - Animated_31
+  - first:
+      213: -3089448469865989160
+    second: Ghost-Big - Animated_32
+  - first:
+      213: -6005650223164904110
+    second: Ghost-Big - Animated_33
+  - first:
+      213: -8525376530161078037
+    second: Ghost-Big - Animated_34
+  - first:
+      213: -3049506987013683529
+    second: Ghost-Big - Animated_35
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_0
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b79dec85df5ec80800000000000000
+      internalID: -8293944580863591524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_1
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94122f7a2f305daf0800000000000000
+      internalID: -372387053453565623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_2
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80f7e8eff0afd5680800000000000000
+      internalID: -8764574353190912248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_3
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f6d87e315a4f7a0800000000000000
+      internalID: -6344264470150418621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_4
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955b5af4fac3579a0800000000000000
+      internalID: -6236011385371380391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_5
+      rect:
+        serializedVersion: 2
+        x: 1035
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c084f28cc3e62f5e0800000000000000
+      internalID: -1877316887324440564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_6
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904ad01d02225fb4e93d4f31faa1224c
+      internalID: 1001955756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_7
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb8cb165c573a064088767c0b59ec3b0
+      internalID: -1198905024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_8
+      rect:
+        serializedVersion: 2
+        x: 1618
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1260e7968e182d48aaf54fe85f210d8
+      internalID: 1630783130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_9
+      rect:
+        serializedVersion: 2
+        x: 1810
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d065fe2b4778ddb47ac4208b7cdc6e1d
+      internalID: 92738497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_10
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a45cfe127a132b4eb3c1b04c3123cce
+      internalID: -247149185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost-Big - Animated_11
+      rect:
+        serializedVersion: 2
+        x: 2192
+        y: 0
+        width: 166
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6381f587805c9bc4e8daa9b36f04190a
+      internalID: 1791912198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e0d184814203ec8459b8eac6a0fb84a4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ghost-Big - Animated_0: -8293944580863591524
+      Ghost-Big - Animated_1: -372387053453565623
+      Ghost-Big - Animated_10: -247149185
+      Ghost-Big - Animated_11: 1791912198
+      Ghost-Big - Animated_2: -8764574353190912248
+      Ghost-Big - Animated_3: -6344264470150418621
+      Ghost-Big - Animated_4: -6236011385371380391
+      Ghost-Big - Animated_5: -1877316887324440564
+      Ghost-Big - Animated_6: 1001955756
+      Ghost-Big - Animated_7: -1198905024
+      Ghost-Big - Animated_8: 1630783130
+      Ghost-Big - Animated_9: 92738497
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

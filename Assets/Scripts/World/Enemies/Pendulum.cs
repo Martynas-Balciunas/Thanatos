@@ -5,14 +5,14 @@ using UnityEngine;
 public class Pendulum : MonoBehaviour
 {
     public float speed;//impulse strength
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rb;
     public float leftAngle;
     public float rightAngle;
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        rigidbody2D.angularVelocity = speed*10;//gives initial impulse anti clockwise for it to reach the rightAngle
+        rb = GetComponent<Rigidbody2D>();
+        rb.angularVelocity = speed*10;//gives initial impulse anti clockwise for it to reach the rightAngle
     }
 
     // Update is called once per frame
@@ -21,12 +21,12 @@ public class Pendulum : MonoBehaviour
         //if pendulum exceeds the right angle limit
         if (transform.rotation.z > rightAngle)
         {
-            rigidbody2D.angularVelocity = -1*speed;//makes pendulum swing clockwise
+            rb.angularVelocity = -1*speed;//makes pendulum swing clockwise
         }
         //if pendulum exceeds the left angle limit
         if (transform.rotation.z < leftAngle)
         {
-            rigidbody2D.angularVelocity = speed;//makes pendulum swing anti clockwise
+            rb.angularVelocity = speed;//makes pendulum swing anti clockwise
         }
     }
 
