@@ -31,5 +31,3 @@ public class Pendulum : MonoBehaviour
     }
 
 }
-
-    
