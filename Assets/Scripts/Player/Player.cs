@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
             {
                 jumpSound = audioClip;
             }
-            else if (audioClip.clip.name == "Walk")
+            else if (audioClip.clip.name == "walk")
             {
                 walkSound = audioClip;
             }
