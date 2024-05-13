@@ -156,11 +156,6 @@ public class Player : MonoBehaviour
                 ChangeForm("Alive");
             }
         }
-        if (collision.gameObject.CompareTag("Key"))
-        {
-            KeyCollected();
-            Destroy(collision.gameObject);
-        }
         if (collision.gameObject.CompareTag("MovingPlatform"))
         {
             transform.SetParent(collision.collider.transform, true);
@@ -208,6 +203,11 @@ public class Player : MonoBehaviour
                 TakeDamage(1);
                 ChangeForm("Ghost");
             }
+        }
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            KeyCollected();
+            Destroy(collision.gameObject);
         }
     }
 

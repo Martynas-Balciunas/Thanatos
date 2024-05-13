@@ -6,6 +6,8 @@ using UnityEngine.Timeline;
 using TMPro;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
+using Unity.VisualScripting;
 
 public class UImanager : MonoBehaviour
 {
@@ -19,11 +21,20 @@ public class UImanager : MonoBehaviour
     void Start()
     {
         Instance = this;
+
     }
 
-    void Update()
+    void LateUpdate()
     {
-      
+        if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 1f)
+        {
+            Pause();
+        }
+        else if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 0f)
+        {
+            unPauseOnClick();
+        }
+
     }
 
     private void OnApplicationPause(bool pauseStatus) {
@@ -149,4 +160,6 @@ public class UImanager : MonoBehaviour
         SceneManager.LoadScene("TutorialLevel");
         // SceneManager.LoadScene("Tutorial");
     }
+
+
 }
