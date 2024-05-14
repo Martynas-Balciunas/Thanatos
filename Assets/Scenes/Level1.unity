@@ -149093,6 +149093,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3145398916024096300, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: m_Volume
+      value: 0.62
+      objectReference: {fileID: 0}
     - target: {fileID: 3358602159185965036, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -149136,6 +149140,10 @@ PrefabInstance:
     - target: {fileID: 4546272836334346692, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640475580011346970, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: m_Volume
+      value: 0.615
       objectReference: {fileID: 0}
     - target: {fileID: 8850148840227182339, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
       propertyPath: 'MusicPlaylist.Array.data[0]'
