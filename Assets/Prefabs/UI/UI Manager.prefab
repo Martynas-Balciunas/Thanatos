@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyText: {fileID: 0}
   pauseMenu: {fileID: 0}
+  lossMenu: {fileID: 0}
+  settingsMenu: {fileID: 0}
   hearts:
   - {fileID: 0}
   - {fileID: 0}
@@ -53,3 +55,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  masterVolume: {fileID: 24100000, guid: 72bbaf8e72a96274ab3b504188bc57f0, type: 2}

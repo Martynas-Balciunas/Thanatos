@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 
 public class UImanager : MonoBehaviour
 {
@@ -17,29 +18,32 @@ public class UImanager : MonoBehaviour
     [SerializeField] private GameObject lossMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject[] hearts;
+    [SerializeField] private AudioMixer masterVolume;
 
+    private float originalVolume;
     void Start()
     {
+        masterVolume.GetFloat("exposedMasterAudio", out originalVolume);
         Instance = this;
-
     }
 
     void LateUpdate()
     {
-        if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 1f)
+        Debug.Log("Pause");
+        if ((Input.GetKeyUp(KeyCode.Joystick3Button7) || Input.GetKeyUp(KeyCode.Escape)) && Time.timeScale == 1f)
         {
             Pause();
         }
-        else if ((Input.GetKey(KeyCode.Joystick3Button7) || Input.GetKey(KeyCode.Escape)) && Time.timeScale == 0f)
+        else if ((Input.GetKeyUp(KeyCode.Joystick3Button7) || Input.GetKeyUp(KeyCode.Escape)) && Time.timeScale == 0f)
         {
             unPauseOnClick();
         }
-
     }
 
     private void OnApplicationPause(bool pauseStatus) {
         if(pauseStatus == true){
             Pause();
+            masterVolume.SetFloat("exposedMasterAudio", -80f);
         }        
     }
 
@@ -49,6 +53,8 @@ public class UImanager : MonoBehaviour
         if(pauseMenu != null)
         {
             pauseMenu.SetActive(true);
+            masterVolume.SetFloat("exposedMasterAudio", -80f);
+
         }
     }
 
@@ -58,6 +64,7 @@ public class UImanager : MonoBehaviour
         if (pauseMenu != null)
         {
             pauseMenu.SetActive(false);
+            masterVolume.SetFloat("exposedMasterAudio", originalVolume);
         }
 
     }
@@ -167,6 +174,7 @@ public class UImanager : MonoBehaviour
         SceneManager.LoadScene("TutorialLevel");
         // SceneManager.LoadScene("Tutorial");
     }
+
 
 
 }
