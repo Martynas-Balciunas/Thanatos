@@ -1,24 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class saveManager : MonoBehaviour
 {
     public static saveManager Instance;
-    private bool saveDataExists = false;
-    void Start()
-    {
+
+    void Awake() {
+    if (Instance == null) {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    } else {
+        Destroy(gameObject);
+    }
+}
+
+
+    public void SaveGame()
+    {
+        // Save current level
+        PlayerPrefs.SetInt("savedScene", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
     }
 
-    void Update()
-    {
-        
+   public void LoadGame()
+{
+    int sceneIndex = PlayerPrefs.GetInt("savedScene", -1); // default to -1 or an invalid scene index
+    if (sceneIndex >= 0) {
+        SceneManager.LoadScene(sceneIndex);
+    } else {
+        Debug.LogError("Invalid scene index");
     }
+}
 
 
     public bool doesSaveDataExist()
     {
-        return saveDataExists;
+        return PlayerPrefs.HasKey("savedScene");
     }
 }

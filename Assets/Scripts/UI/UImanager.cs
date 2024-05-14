@@ -131,6 +131,7 @@ public class UImanager : MonoBehaviour
     public void goToMainMenu()
     {
         Time.timeScale = 1f; // Ensure the time scale is reset before loading the main menu
+        saveManager.Instance.SaveGame(); //Save game before going to the main menu
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -147,12 +148,18 @@ public class UImanager : MonoBehaviour
     }
 
     public void continuePreviousGame()
+{
+    if (saveManager.Instance.doesSaveDataExist())
     {
-        if (!saveManager.Instance.doesSaveDataExist())
-        {
-            startNewGame();
-        }
+        Debug.Log("Continuing game...");
+        saveManager.Instance.LoadGame();
     }
+    else
+    {
+        Debug.Log("No save data found, starting new game.");
+        startNewGame();
+    }
+}
 
     public void startNewGame() 
     {
