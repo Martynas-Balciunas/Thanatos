@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private AudioSource jumpSound;
     private AudioSource walkSound;
     private AudioSource collectItem1;
+    private AudioSource collectItem2;
     private AudioSource openDoor;
     private AudioSource deathSound;
 
@@ -63,6 +64,10 @@ public class Player : MonoBehaviour
             else if (audioClip.clip.name == "collectItem1")
             {
                 collectItem1 = audioClip;
+            }
+            else if (audioClip.clip.name == "collectItem2")
+            {
+                collectItem2 = audioClip;
             }
             else if(audioClip.clip.name == "door")
             {
@@ -240,6 +245,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("medKit") && !isGhost)
         {
             gainHealth();
+            Destroy(collision.gameObject);
         }
     }
 
