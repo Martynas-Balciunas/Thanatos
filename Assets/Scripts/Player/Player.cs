@@ -111,28 +111,20 @@ public class Player : MonoBehaviour
         // Handle horizontal movement
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        if (Mathf.Abs(moveInput) > 0)
+        if (rb.velocity.x > 0 || rb.velocity.x < 0)
         {
             animator.SetBool("isWalking", true); // Walking animation when moving
 
-            if( isGrounded && isGhost==false)
+            if( (isGrounded) && (isGhost==false))
             {
                 //walkSound.Play();
                 walkSound.UnPause();
-                walkSound.loop = true;
-            }
-            else
-            {
-                //walkSound.Stop();
-                //walkSound.loop = false;
-                walkSound.Pause();
             }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            //walkSound.Pause();
-
+            walkSound.Pause();
         }
 
         // Flip sprite based on movement direction
