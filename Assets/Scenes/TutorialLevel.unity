@@ -1702,6 +1702,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2563992647507290312, guid: 8d8507e81b0bdee47ad57aff2a1b8334, type: 3}
   m_PrefabInstance: {fileID: 1472749734}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1057954013
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2728001759622959694, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: textToDisplay
+      value: You can double jump while alive!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690240188976304532, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774243355675003355, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_Name
+      value: sign (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
 --- !u!1001 &1139857019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8617,8 +8682,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2728001759622959694, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
       propertyPath: textToDisplay
-      value: Welcome to the world of Thanatos, Death is not death but you will perish
-        if you die too much.
+      value: Welcome to the world, this tutorial will show basic mechanics!
       objectReference: {fileID: 0}
     - target: {fileID: 3690240188976304532, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
       propertyPath: m_IsActive
@@ -8701,3 +8765,4 @@ SceneRoots:
   - {fileID: 2075696554}
   - {fileID: 1842182898}
   - {fileID: 8550517307852732064}
+  - {fileID: 1057954013}
