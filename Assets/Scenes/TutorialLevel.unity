@@ -1010,7 +1010,7 @@ Transform:
   m_GameObject: {fileID: 290137416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19817352, y: 0.8483896, z: -10}
+  m_LocalPosition: {x: -14.32, y: 1.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1313,7 +1313,7 @@ Transform:
   m_GameObject: {fileID: 626721882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19817352, y: 0.8483896, z: -10}
+  m_LocalPosition: {x: -14.32, y: 1.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7664,11 +7664,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2563992647507290312, guid: 8d8507e81b0bdee47ad57aff2a1b8334, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.19817352
+      value: -14.32
       objectReference: {fileID: 0}
     - target: {fileID: 2563992647507290312, guid: 8d8507e81b0bdee47ad57aff2a1b8334, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1516104
+      value: -2.71
       objectReference: {fileID: 0}
     - target: {fileID: 2563992647507290312, guid: 8d8507e81b0bdee47ad57aff2a1b8334, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8358,7 +8358,7 @@ Transform:
   m_GameObject: {fileID: 1979074470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19817352, y: -3.1516104, z: 0}
+  m_LocalPosition: {x: -14.32, y: -2.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8607,6 +8607,72 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 532dafbc064bce44b96cdfdaf6a5718f, type: 3}
+--- !u!1001 &8550517307852732064
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2728001759622959694, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: textToDisplay
+      value: Welcome to the world of Thanatos, Death is not death but you will perish
+        if you die too much.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690240188976304532, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774243355675003355, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_Name
+      value: sign
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514082876052282159, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 075ea5a41fe17e942be8f74022cb5f37, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8634,3 +8700,4 @@ SceneRoots:
   - {fileID: 2070168126}
   - {fileID: 2075696554}
   - {fileID: 1842182898}
+  - {fileID: 8550517307852732064}
