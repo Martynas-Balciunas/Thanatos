@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 
     private AudioSource jumpSound;
     private AudioSource walkSound;
+    private AudioSource collectItem1;
 
     private void Start()
     {
@@ -54,7 +55,12 @@ public class Player : MonoBehaviour
             {
                 walkSound = audioClip;
                 walkSound.Play();
+                walkSound.loop = true;
                 walkSound.Pause();
+            }
+            else if (audioClip.clip.name == "collectItem1")
+            {
+                collectItem1 = audioClip;
             }
         }
 
@@ -98,14 +104,15 @@ public class Player : MonoBehaviour
             else
             {
                 //walkSound.Stop();
-                walkSound.loop = false;
+                //walkSound.loop = false;
+                walkSound.Pause();
             }
         }
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            walkSound.loop = false;
-            walkSound.Stop();
+            walkSound.Pause();
+
         }
 
         // Flip sprite based on movement direction
