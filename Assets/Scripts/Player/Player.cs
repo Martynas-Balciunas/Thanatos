@@ -77,6 +77,11 @@ public class Player : MonoBehaviour
             jumpCount = 0;
             animator.SetBool("isGrounded", true); // Update animation
         }
+        else if (isGrounded && isGhost)
+        {
+            animator.SetBool("isGrounded", true); // Update animation
+
+        }
         else
         {
             animator.SetBool("isGrounded", false); // Update animation
