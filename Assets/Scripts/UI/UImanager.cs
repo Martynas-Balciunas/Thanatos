@@ -29,7 +29,6 @@ public class UImanager : MonoBehaviour
 
     void LateUpdate()
     {
-        Debug.Log("Pause");
         if ((Input.GetKeyUp(KeyCode.Joystick3Button7) || Input.GetKeyUp(KeyCode.Escape)) && Time.timeScale == 1f)
         {
             Pause();
