@@ -68,10 +68,6 @@ public class UImanager : MonoBehaviour
 
     }
 
-    public void saveOnClick()
-    {
-        // to be implemented
-    }
 
     public void exitOnClick()
     {
@@ -130,6 +126,7 @@ public class UImanager : MonoBehaviour
     public void resetCurrentScene()
     {
         Time.timeScale = 1f; // Ensure the time scale is reset before reloading
+        masterVolume.SetFloat("exposedMasterAudio", originalVolume);
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
     }
