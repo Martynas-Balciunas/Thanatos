@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     private AudioSource jumpSound;
     private AudioSource walkSound;
     private AudioSource collectItem1;
+    private AudioSource openDoor;
+    private AudioSource deathSound;
 
     private void Start()
     {
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
 
         foreach (AudioSource audioClip in soundFX)
         {
-            if(audioClip.clip.name == "Jump")
+            if (audioClip.clip.name == "Jump")
             {
                 jumpSound = audioClip;
             }
@@ -61,6 +63,14 @@ public class Player : MonoBehaviour
             else if (audioClip.clip.name == "collectItem1")
             {
                 collectItem1 = audioClip;
+            }
+            else if(audioClip.clip.name == "door")
+            {
+                openDoor = audioClip;
+            }
+            else if (audioClip.clip.name == "death")
+            {
+                deathSound = audioClip;
             }
         }
 
@@ -111,7 +121,7 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetBool("isWalking", false); // Idle when still
-            walkSound.Pause();
+            //walkSound.Pause();
 
         }
 
@@ -176,6 +186,7 @@ public class Player : MonoBehaviour
             if(keyCount > 0)
             {
                 UseKey();
+                openDoor.Play();
                 Destroy(collision.gameObject);
             }
         }
@@ -290,6 +301,7 @@ public class Player : MonoBehaviour
         currentHealth = 0;
         // Play death effects & sound
         UImanager.Instance.removeAllHearts(); // ensures no hearts in case instant death
+        deathSound.Play();
         UImanager.Instance.showLossMenu();
     }
 
