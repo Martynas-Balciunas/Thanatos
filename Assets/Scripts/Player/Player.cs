@@ -120,6 +120,10 @@ public class Player : MonoBehaviour
                 //walkSound.Play();
                 walkSound.UnPause();
             }
+            else
+            {
+                walkSound.Pause();
+            }
         }
         else
         {
