@@ -14,10 +14,13 @@ public class AudioManager : MonoBehaviour
     {
         Instance = this;
         MusicPlaylist = GetComponents<AudioSource>();
+       
+    }
+    private void Awake()
+    {
         stopMusic();
         playMusic(MusicPlaylist[0]);
     }
-
     private void FixedUpdate()
     {
         foreach(AudioSource song in MusicPlaylist)
@@ -66,10 +69,5 @@ public class AudioManager : MonoBehaviour
         {
             song.UnPause();
         }
-    }
-    public void changeSong(AudioSource song)
-    {
-        stopMusic();
-        playMusic(song);
     }
 }
