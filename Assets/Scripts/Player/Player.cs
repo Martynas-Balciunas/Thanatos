@@ -222,6 +222,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("medKit") && !isGhost)
         {
             gainHealth();
+            Destroy(collision.gameObject);
         }
     }
 
