@@ -20126,11 +20126,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8850148840227182339, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: 'MusicPlaylist.Array.data[0]'
+      value: 
+      objectReference: {fileID: 613905161}
+    m_RemovedComponents:
+    - {fileID: 7232691960088648458, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+--- !u!82 &613905161 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3145398916024096300, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+  m_PrefabInstance: {fileID: 613905160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &624986399 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6896226026833673637, guid: db3c217ffea562140a748fb5802384bd, type: 3}

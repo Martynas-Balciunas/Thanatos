@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     private AudioSource collectItem2;
     private AudioSource openDoor;
     private AudioSource deathSound;
+    private AudioSource ironMaidenStab;
 
     private void Start()
     {
@@ -76,6 +77,10 @@ public class Player : MonoBehaviour
             else if (audioClip.clip.name == "death")
             {
                 deathSound = audioClip;
+            }
+            else if (audioClip.clip.name == "stab")
+            {
+                ironMaidenStab = audioClip;
             }
         }
 
@@ -176,6 +181,7 @@ public class Player : MonoBehaviour
             if (!isGhost)
             {
                 TakeDamage(1);
+                ironMaidenStab.Play();
                 ChangeForm("Ghost");
             }
             else

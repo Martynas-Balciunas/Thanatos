@@ -149093,6 +149093,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3145398916024096300, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: m_Volume
+      value: 0.62
+      objectReference: {fileID: 0}
     - target: {fileID: 3358602159185965036, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -149137,11 +149141,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5640475580011346970, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: m_Volume
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850148840227182339, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: 'MusicPlaylist.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2097381076}
+    m_RemovedComponents:
+    - {fileID: 7232691960088648458, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+--- !u!82 &2097381076 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3145398916024096300, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+  m_PrefabInstance: {fileID: 2097381075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2128176268 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9073800059450205787, guid: 9cfc516992e06654e82b18fc7c7bb833, type: 3}
