@@ -77,6 +77,11 @@ public class Player : MonoBehaviour
             jumpCount = 0;
             animator.SetBool("isGrounded", true); // Update animation
         }
+        else if (isGrounded && isGhost)
+        {
+            animator.SetBool("isGrounded", true); // Update animation
+
+        }
         else
         {
             animator.SetBool("isGrounded", false); // Update animation
@@ -214,6 +219,10 @@ public class Player : MonoBehaviour
             KeyCollected();
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("medKit") && !isGhost)
+        {
+            gainHealth();
+        }
     }
 
     public void TakeDamage(int damage)
@@ -306,8 +315,7 @@ public class Player : MonoBehaviour
     {
         if (currentHealth < maxHealth)
         {
-            // increase health
-            // play heal effect & sound
+            currentHealth += 1;
             UImanager.Instance.addHeartUI();
         }
     }
