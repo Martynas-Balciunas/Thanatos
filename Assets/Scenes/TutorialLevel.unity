@@ -880,6 +880,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8850148840227182339, guid: cc149bb7ad0279e45a38f2ebc86cad3f, type: 3}
+      propertyPath: MusicPlaylist.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8004,10 +8008,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 888765912}
     - target: {fileID: 2722786989266346714, guid: cb240da726de27942991e8489aec4da6, type: 3}
-      propertyPath: hearts.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2722786989266346714, guid: cb240da726de27942991e8489aec4da6, type: 3}
       propertyPath: 'hearts.Array.data[0]'
       value: 
       objectReference: {fileID: 559677172}
@@ -8255,18 +8255,6 @@ PrefabInstance:
     - target: {fileID: 6952393281374991970, guid: ed544f96e406fd84882c5b0e72f2119e, type: 3}
       propertyPath: m_SizeDelta.y
       value: -60
-      objectReference: {fileID: 0}
-    - target: {fileID: 6952393281374991970, guid: ed544f96e406fd84882c5b0e72f2119e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6952393281374991970, guid: ed544f96e406fd84882c5b0e72f2119e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6952393281374991970, guid: ed544f96e406fd84882c5b0e72f2119e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6952393281374991970, guid: ed544f96e406fd84882c5b0e72f2119e, type: 3}
       propertyPath: m_LocalPosition.x
