@@ -45,7 +45,11 @@ public class UImanager : MonoBehaviour
             masterVolume.SetFloat("exposedMasterAudio", -80f);
         }        
     }
-
+    private void OnApplicationFocus(bool focus)
+    {
+        masterVolume.SetFloat("exposedMasterAudio", originalVolume);
+        unPauseOnClick();
+    }
     public void Pause()
     {
         Time.timeScale = 0f;
